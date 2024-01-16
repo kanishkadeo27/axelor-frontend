@@ -10,7 +10,6 @@ let curryear = date.getFullYear();
 let currMonth = date.getMonth();
 let currMonthName = months[date.getMonth()];
 let currDate = date.getDate();
-console.log(currDate);
 
 //function to add month and year to month tag
 const addMonthYr = (year, month) => {
@@ -21,9 +20,17 @@ addMonthYr(curryear, currMonthName);
 //function to render calender of particular month
 const renderCalender = (year, month) => {
     let stDay = new Date(year, month, 1).getDay(); //start day
-    let lastDate = new Date(year, month + 1, 0).getDate(); //last day of month
+    let lastDate = new Date(year, month + 1, 0).getDate(); //last date of month
+    let lastDayOfMonth = new Date(year, month, lastDate).getDay(); //last day of month
+    console.log(lastDayOfMonth)
+    let lastDateOfPrevMonth = new Date(year, month , 0).getDate(); //last day of month
+    // console.log(lastDateOfPrevMonth)
     let liTag = "";
-    for (let i = 0; i <= (lastDate + stDay); i++) {
+    for (let i = stDay; i > 0; i--) {
+        liTag += `<li class = "inactive">${lastDateOfPrevMonth - i + 1}</li>`
+        
+    }
+    for (let i = 1; i < (lastDate + stDay); i++) {
         let val = i - stDay + 1;
         val = val <= 0 || val > lastDate ? " " : val;
         if (val == currDate) {
@@ -31,9 +38,13 @@ const renderCalender = (year, month) => {
         } 
         else 
         {
-    
             liTag += `<li>${val}</li>`
         }
+    }
+    // console.log("loop done")
+    for (let i = lastDayOfMonth; i < 6; i++) {
+        liTag += `<li class = "inactive">${i - lastDayOfMonth + 1}</li>`
+        
     }
     month.innerHTML = `${months[month]} ${year}`;
     datesTag.innerHTML = liTag;

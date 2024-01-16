@@ -53,22 +53,49 @@ body {
 
 .calender .weeks li {
     font-weight: bold;
+    line-height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 .calender ul {
     list-style-type: none;
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .calender .days li {
+    z-index: 1;
     cursor: pointer;
     position: relative;
     line-height: 50px;
     width: 50px;
     height: 50px;
 }
+.days li.inactive{
+    color: #aaa;
+  }
+  .days li.active{
+    color: #fff;
+  }
+  .days li::before{
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .days li.active::before{
+    background: #9B59B6;
+  }
+  .days li:not(.active):hover::before{
+    background: #f2f2f2;
+  }
 .current-date{
     background-color: burlywood;
     color: white;
